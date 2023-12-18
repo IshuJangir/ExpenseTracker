@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .navbar {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            margin-top:20px;
+            display:flex;
+            justify-content:end;
+            align-items:center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .dashboard-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color:white;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .logoutButton{
+            background-color: #FF2400;
+            padding:10px;
+            border-radius:5px;
+        }
+        .add{
+            background-color: #90EE90;
+            padding:10px;
+            border-radius:5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        thead {
+            background-color: black;
+            color: white;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .myData{
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 10px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        tr{
+            border-radius:10px;
+        }
+
+        .total{
+            display:flex;
+            border:1px solid red;
+            justify-content:end;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a class="add" href="{{ url_for('add_expense') }}">Add Expense</a>
+        <a class="logoutButton" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Display user's expenses -->
+        {% if expenses %}
+            <h2>Your Expenses:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Expense</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in expenses %}
+                        <tr class="myData">
+                            <td>{{ expense.name }}</td>
+                            <td>₹{{ expense.amount }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No expenses added yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
